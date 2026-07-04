@@ -4,20 +4,30 @@
 
 This project implements a Fake News Detection system using Natural Language Processing (NLP) and Machine Learning. The objective is to classify a news article as **Real** or **Fake** using the Fake and Real News Dataset.
 
-The project follows a complete machine learning pipeline including data preprocessing, feature engineering using TF-IDF, model training with Logistic Regression, hyperparameter tuning, and evaluation.
+The project follows a complete machine learning pipeline including Exploratory Data Analysis (EDA), text preprocessing, TF-IDF feature extraction, Logistic Regression model training, evaluation, and prediction.
 
 ---
 
 ## Dataset
 
-Dataset Used: **Fake and Real News Dataset**
+**Dataset:** Fake and Real News Dataset
 
-Files:
+Files used:
 
-- `Fake.csv`
-- `True.csv`
+- Fake.csv
+- True.csv
 
-The dataset is placed inside the **data/** folder.
+The dataset contains news articles with the following columns:
+
+- title
+- text
+- subject
+- date
+
+Labels assigned:
+
+- Fake News → **0**
+- Real News → **1**
 
 ---
 
@@ -29,16 +39,18 @@ FakeNewsDetection/
 │── data/
 │   ├── Fake.csv
 │   ├── True.csv
+│   ├── merged_news.csv
+│   └── preprocessed_news.csv
 │
 │── models/
 │   ├── logistic_regression.pkl
-│   ├── tfidf_vectorizer.pkl
+│   └── tfidf_vectorizer.pkl
 │
 │── outputs/
 │   ├── confusion_matrix.png
 │   ├── roc_curve.png
 │   ├── metrics.txt
-│   ├── misclassified_articles.csv
+│   └── misclassified_articles.csv
 │
 │── EDA.ipynb
 │── FakeNewsDetection.ipynb
@@ -60,18 +72,19 @@ FakeNewsDetection/
 
 ---
 
-## Machine Learning Pipeline
+## Methodology
 
-1. Load Dataset
-2. Exploratory Data Analysis (EDA)
-3. Text Preprocessing
-4. Train–Validation–Test Split (70:10:20)
-5. TF-IDF Feature Engineering
-6. Logistic Regression Training
-7. Hyperparameter Tuning
-8. Model Evaluation
-9. Save Model
-10. Predict New News Articles
+The project follows these steps:
+
+1. Load the dataset
+2. Perform Exploratory Data Analysis (EDA)
+3. Clean and preprocess the text
+4. Split the dataset into Train (70%), Validation (10%), and Test (20%)
+5. Convert text into TF-IDF vectors
+6. Train a Logistic Regression classifier
+7. Evaluate the model
+8. Save the trained model and TF-IDF vectorizer
+9. Predict new news articles
 
 ---
 
@@ -84,9 +97,9 @@ The following preprocessing steps were applied:
 - Remove URLs
 - Remove numbers
 - Remove punctuation
-- Remove extra spaces
+- Remove extra whitespaces
 - Tokenization
-- Stopword Removal
+- Stopword removal
 - Lemmatization
 - Combine title and article text
 
@@ -107,20 +120,12 @@ TF-IDF Parameters:
 
 **Algorithm:** Logistic Regression
 
-Parameters:
+Model Parameters:
 
 - solver = liblinear
 - C = 1.0
 - max_iter = 1000
 - random_state = 42
-
----
-
-## Data Split
-
-- Training Set : 70%
-- Validation Set : 10%
-- Test Set : 20%
 
 ---
 
@@ -140,66 +145,58 @@ The model was evaluated using:
 
 ## How to Run
 
-### 1. Install Dependencies
+### 1. Install the required libraries
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Place Dataset
-
-Copy the following files inside the **data/** folder:
+### 2. Place the dataset files inside the `data` folder
 
 - Fake.csv
 - True.csv
 
-### 3. Run the Notebooks
+### 3. Run the notebooks in the following order
 
-Run the notebooks in the following order:
+1. `EDA.ipynb`
+2. `FakeNewsDetection.ipynb`
 
-1. **EDA.ipynb**
-2. **FakeNewsDetection.ipynb**
-
-The notebook performs:
+The notebooks perform:
 
 - Data Loading
 - Data Preprocessing
 - TF-IDF Feature Engineering
 - Model Training
-- Hyperparameter Tuning
 - Model Evaluation
 - Model Saving
-- Prediction
+- Prediction on New News
 
 ---
 
 ## Output Files
 
-After successful execution, the following files will be generated.
+### Models
 
-### models/
+- models/logistic_regression.pkl
+- models/tfidf_vectorizer.pkl
 
-- logistic_regression.pkl
-- tfidf_vectorizer.pkl
+### Outputs
 
-### outputs/
-
-- confusion_matrix.png
-- roc_curve.png
-- metrics.txt
-- misclassified_articles.csv
+- outputs/confusion_matrix.png
+- outputs/roc_curve.png
+- outputs/misclassified_articles.csv
 
 ---
 
 ## Reproducibility
 
-The project is fully reproducible because:
+This project is reproducible because:
 
 - Fixed random seed (`random_state = 42`)
-- Same preprocessing pipeline
-- Fixed train-validation-test split
-- Same TF-IDF parameters
-- Fixed Logistic Regression hyperparameters
+- Fixed Train–Validation–Test split (70:10:20)
+- Consistent preprocessing pipeline
+- Fixed TF-IDF parameters
+- Fixed Logistic Regression parameters
 - Saved trained model
 - Saved TF-IDF vectorizer
 
@@ -207,8 +204,9 @@ The project is fully reproducible because:
 
 ## Future Improvements
 
-- Linear SVM
-- Random Forest
+Possible improvements include:
+
+- Support Vector Machine (SVM)
 - XGBoost
 - BERT
 - RoBERTa
