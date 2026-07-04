@@ -1,343 +1,221 @@
-# Fake News Detection using Machine Learning (TF-IDF + Logistic Regression)
+# Fake News Detection using TF-IDF and Logistic Regression
 
 ## Project Overview
 
-This project implements a **Fake News Detection** system using **Natural Language Processing (NLP)** and **Machine Learning**. The objective is to classify a news article as **Real** or **Fake** based on its title and article text.
+This project implements a Fake News Detection system using Natural Language Processing (NLP) and Machine Learning. The objective is to classify a news article as **Real** or **Fake** using the Fake and Real News Dataset.
 
-The project uses the **Fake and Real News Dataset** from Kaggle and follows a complete machine learning pipeline including:
-
-* Data Loading
-* Exploratory Data Analysis (EDA)
-* Text Preprocessing
-* Feature Engineering using TF-IDF
-* Logistic Regression Model Training
-* Hyperparameter Tuning
-* Model Evaluation
-* Model Saving
-* Prediction on New News Articles
-
-The implementation follows the assignment requirement of a **70:10:20 Train : Validation : Test split** and is fully reproducible.
+The project follows a complete machine learning pipeline including data preprocessing, feature engineering using TF-IDF, model training with Logistic Regression, hyperparameter tuning, and evaluation.
 
 ---
 
-# Problem Statement
+## Dataset
 
-Given a news article consisting of a title and body text, build a machine learning model that classifies the article into one of the following categories:
-
-* **Real News (Label = 1)**
-* **Fake News (Label = 0)**
-
-This is a **Supervised Binary Classification** problem.
-
----
-
-# Dataset
-
-Dataset Name:
-
-**Fake and Real News Dataset**
+Dataset Used: **Fake and Real News Dataset**
 
 Files:
 
-* Fake.csv
-* True.csv
+- `Fake.csv`
+- `True.csv`
 
-Columns:
-
-* title
-* text
-* subject
-* date
-
-After loading:
-
-* Fake articles are assigned label **0**
-* Real articles are assigned label **1**
+The dataset is placed inside the **data/** folder.
 
 ---
 
-# Project Structure
+## Project Structure
 
-```text
+```
 FakeNewsDetection/
 
-│
-├── data/
+│── data/
 │   ├── Fake.csv
 │   ├── True.csv
-│   ├── merged_news.csv
-│   └── preprocessed_news.csv
 │
-├── models/
+│── models/
 │   ├── logistic_regression.pkl
-│   └── tfidf_vectorizer.pkl
+│   ├── tfidf_vectorizer.pkl
 │
-├── outputs/
+│── outputs/
 │   ├── confusion_matrix.png
 │   ├── roc_curve.png
 │   ├── metrics.txt
-│   └── misclassified_articles.csv
+│   ├── misclassified_articles.csv
 │
-├── notebooks/
-│   └── FakeNewsDetection.ipynb
-│
-├── requirements.txt
-├── README.md
-└── LICENSE (optional)
+│── EDA.ipynb
+│── FakeNewsDetection.ipynb
+│── requirements.txt
+│── README.md
 ```
 
 ---
 
-# Technologies Used
+## Technologies Used
 
-* Python 3.11+
-* Pandas
-* NumPy
-* Scikit-learn
-* NLTK
-* Matplotlib
-* Joblib
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- NLTK
+- Matplotlib
+- Joblib
 
 ---
 
-# Machine Learning Workflow
+## Machine Learning Pipeline
 
 1. Load Dataset
-2. Merge Fake and Real News
-3. Perform Exploratory Data Analysis
-4. Clean and preprocess text
-5. Split data into Train, Validation and Test sets
-6. Convert text into TF-IDF vectors
-7. Train Logistic Regression classifier
-8. Tune hyperparameters using GridSearchCV
-9. Evaluate the model
-10. Save trained model and vectorizer
-11. Predict on unseen news articles
+2. Exploratory Data Analysis (EDA)
+3. Text Preprocessing
+4. Train–Validation–Test Split (70:10:20)
+5. TF-IDF Feature Engineering
+6. Logistic Regression Training
+7. Hyperparameter Tuning
+8. Model Evaluation
+9. Save Model
+10. Predict New News Articles
 
 ---
 
-# Data Preprocessing
+## Text Preprocessing
 
 The following preprocessing steps were applied:
 
-* Convert text to lowercase
-* Remove HTML tags
-* Remove URLs
-* Remove numbers
-* Remove punctuation
-* Remove extra whitespace
-* Tokenization
-* Stopword removal
-* Lemmatization
-* Combine title and article body
+- Convert text to lowercase
+- Remove HTML tags
+- Remove URLs
+- Remove numbers
+- Remove punctuation
+- Remove extra spaces
+- Tokenization
+- Stopword Removal
+- Lemmatization
+- Combine title and article text
 
 ---
 
-# Feature Engineering
+## Feature Engineering
 
-TF-IDF Vectorizer parameters:
+TF-IDF Parameters:
 
-* max_features = 5000
-* ngram_range = (1,2)
-* min_df = 5
-* max_df = 0.8
-
----
-
-# Machine Learning Model
-
-Algorithm:
-
-**Logistic Regression**
-
-Hyperparameters:
-
-* solver = liblinear
-* C = 1.0
-* max_iter = 1000
-* random_state = 42
+- max_features = 5000
+- ngram_range = (1,2)
+- min_df = 5
+- max_df = 0.8
 
 ---
 
-# Train–Validation–Test Split
+## Machine Learning Model
 
-The dataset was divided using stratified sampling:
+**Algorithm:** Logistic Regression
 
-* Training Set = 70%
-* Validation Set = 10%
-* Test Set = 20%
+Parameters:
 
-Random seed:
-
-```python
-random_state = 42
-```
+- solver = liblinear
+- C = 1.0
+- max_iter = 1000
+- random_state = 42
 
 ---
 
-# Evaluation Metrics
+## Data Split
+
+- Training Set : 70%
+- Validation Set : 10%
+- Test Set : 20%
+
+---
+
+## Evaluation Metrics
 
 The model was evaluated using:
 
-* Accuracy
-* Precision
-* Recall
-* F1 Score
-* ROC-AUC
-* Confusion Matrix
-* Classification Report
+- Accuracy
+- Precision
+- Recall
+- F1-Score
+- ROC-AUC
+- Confusion Matrix
+- Classification Report
 
 ---
 
-# How to Run the Project
+## How to Run
 
-## Step 1
-
-Clone or download this project.
-
-## Step 2
-
-Install all required dependencies.
+### 1. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Step 3
+### 2. Place Dataset
 
-Place the following dataset files inside the **data** folder:
+Copy the following files inside the **data/** folder:
 
-* Fake.csv
-* True.csv
+- Fake.csv
+- True.csv
 
-## Step 4
+### 3. Run the Notebooks
 
-Open the Jupyter Notebook:
+Run the notebooks in the following order:
 
-```
-FakeNewsDetection.ipynb
-```
-
-Run all notebook cells in order.
+1. **EDA.ipynb**
+2. **FakeNewsDetection.ipynb**
 
 The notebook performs:
 
-* Data Loading
-* EDA
-* Text Preprocessing
-* TF-IDF Vectorization
-* Model Training
-* Hyperparameter Tuning
-* Model Evaluation
-* Model Saving
-* Prediction on New Data
+- Data Loading
+- Data Preprocessing
+- TF-IDF Feature Engineering
+- Model Training
+- Hyperparameter Tuning
+- Model Evaluation
+- Model Saving
+- Prediction
 
 ---
 
-# Saved Files
+## Output Files
 
-After execution, the following files are generated.
+After successful execution, the following files will be generated.
 
-## Models
+### models/
 
-* models/logistic_regression.pkl
-* models/tfidf_vectorizer.pkl
+- logistic_regression.pkl
+- tfidf_vectorizer.pkl
 
-## Outputs
+### outputs/
 
-* confusion_matrix.png
-* roc_curve.png
-* metrics.txt
-* misclassified_articles.csv
-
----
-
-# Sample Prediction
-
-Input:
-
-```
-Scientists discovered a new vaccine effective against multiple virus strains.
-```
-
-Output:
-
-```
-Prediction : Real News
-
-Probability : 0.97
-```
+- confusion_matrix.png
+- roc_curve.png
+- metrics.txt
+- misclassified_articles.csv
 
 ---
 
-# Reproducibility
+## Reproducibility
 
-This project is fully reproducible because:
+The project is fully reproducible because:
 
-* Fixed random seed (42)
-* Fixed Train–Validation–Test split
-* Same preprocessing pipeline
-* Fixed TF-IDF parameters
-* Fixed Logistic Regression hyperparameters
-* Saved TF-IDF vectorizer
-* Saved trained model
-* Documented Python libraries
-
----
-
-# Limitations
-
-The current model:
-
-* Does not understand semantic meaning.
-* Does not understand sarcasm.
-* Does not capture long-range context.
-* Relies on TF-IDF features.
-* May misclassify satire or highly ambiguous articles.
+- Fixed random seed (`random_state = 42`)
+- Same preprocessing pipeline
+- Fixed train-validation-test split
+- Same TF-IDF parameters
+- Fixed Logistic Regression hyperparameters
+- Saved trained model
+- Saved TF-IDF vectorizer
 
 ---
 
-# Future Improvements
+## Future Improvements
 
-Possible improvements include:
-
-* Linear SVM
-* Random Forest
-* XGBoost
-* Character n-grams
-* Word2Vec
-* GloVe
-* FastText
-* BERT
-* RoBERTa
-* DistilBERT
+- Linear SVM
+- Random Forest
+- XGBoost
+- BERT
+- RoBERTa
+- DistilBERT
 
 ---
 
-# Results
-
-The exact results depend on the train/validation/test split and software versions.
-
-Typical performance on this dataset is:
-
-| Metric    | Expected Range |
-| --------- | -------------- |
-| Accuracy  | 97%–99%        |
-| Precision | 97%–99%        |
-| Recall    | 97%–99%        |
-| F1 Score  | 97%–99%        |
-| ROC-AUC   | 0.99–1.00      |
-
----
-
-# Conclusion
-
-This project demonstrates an end-to-end machine learning solution for fake news detection using TF-IDF and Logistic Regression. It follows a standard NLP pipeline, produces highly competitive performance on the Fake and Real News Dataset, and emphasizes reproducibility, interpretability, and sound machine learning practices.
-
----
-
-# Author
+## Author
 
 **Rajeev Kumar**
-
-Machine Learning | Data Science | Natural Language Processing
